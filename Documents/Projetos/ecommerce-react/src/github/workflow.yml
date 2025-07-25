@@ -16,6 +16,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
+          cache: true
 
       - name: Instalar dependências
         run: npm install
@@ -27,11 +28,10 @@ jobs:
         run: npm run build
 
       - name: Rodar testes com cobertura
-        run: npm test -- --coverage
+        run: npx jest --coverage
 
-      - name: Enviar cobertura para Codecov
-        uses: codecov/codecov-action@v4
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/lcov.info
-          fail_ci_if_error: true
+         token: ${{ secrets.CODECOV_TOKEN }}
+         slug: andryel1/Front-end-Ecommerce
